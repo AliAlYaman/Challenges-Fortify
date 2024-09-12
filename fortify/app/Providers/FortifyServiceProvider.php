@@ -29,21 +29,36 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
-                return redirect()->route('home');
+                return response()->json([
+                    'message' => 'Login success',
+                ]);
             }
         });
 
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
             public function toResponse($request)
             {
-                return redirect()->route('home');
+                // Revoke the current access token if the user is authenticated
+                if ($request->user()) {
+                    $request->user()->currentAccessToken()->delete(); // Revoke the token
+                }
+
+                // Invalidate the session and regenerate CSRF token
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                // Return a JSON response indicating successful logout
+                return response()->json([
+                    'message' => 'Logged out successfully',
+                ], 200);
             }
         });
+
 
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
             public function toResponse($request)
             {
-                return redirect()->route('home');
+                return response()->json(['register succeed']);
             }
         });
 
@@ -59,14 +74,15 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::registerView(function () {
-            return view('register'); // This should point to your custom register Blade view.
-        });
+
+        // Fortify::registerView(function () {
+        //     return view('register'); // This should point to your custom register Blade view.
+        // });
 
 
-        Fortify::loginView(function () {
-            return view('login'); // This should point to your custom register Blade view.
-        });
+        // Fortify::loginView(function () {
+        //     return view('login'); // This should point to your custom register Blade view.
+        // });
 
 
         Fortify::authenticateUsing(function (Request $request) {
@@ -78,19 +94,19 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
-        Fortify::requestPasswordResetLinkView(function(){
-            return view('auth.forgot-password');
-        });
+        // Fortify::requestPasswordResetLinkView(function(){
+        //     return view('auth.forgot-password');
+        // });
 
 
-        Fortify::resetPasswordView(function (Request $request) {
-            return view('auth.reset-password', ['request' => $request]);
-        });
+        // Fortify::resetPasswordView(function (Request $request) {
+        //     return view('auth.reset-password', ['request' => $request]);
+        // });
 
-        Fortify::verifyEmailView(function () {
-            return view('auth.verify-email');
-        });
-        
+        // Fortify::verifyEmailView(function () {
+        //     return view('auth.verify-email');
+        // });
+
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 

@@ -9,10 +9,10 @@ Route::get('/' , function(): View{
     return view('home');
 })->name('home');
 
-Route::get('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
+// Route::get('/tokens/create', function (Request $request) {
+//     $token = $request->user()->createToken('Api token');
 
-    return ['token' => $token->plainTextToken];
-});
+//     return ['token' => $token->plainTextToken];
+// });
 
-Route::middleware(['auth:sanctum' , 'verified'])->resource('users' , UserController::class)->only(['index']);
+Route::resource('users' , UserController::class)->only(['index']);
