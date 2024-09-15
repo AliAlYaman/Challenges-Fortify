@@ -31,6 +31,7 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 return response()->json([
                     'message' => 'Login success',
+                    'email' => $request->input('email'),
                 ]);
             }
         });
@@ -58,7 +59,11 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
             public function toResponse($request)
             {
-                return response()->json(['register succeed']);
+                return response()->json([
+                    'message' => 'Register succeed',
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                ]);
             }
         });
 
@@ -103,9 +108,9 @@ class FortifyServiceProvider extends ServiceProvider
         //     return view('auth.reset-password', ['request' => $request]);
         // });
 
-        // Fortify::verifyEmailView(function () {
-        //     return view('auth.verify-email');
-        // });
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());

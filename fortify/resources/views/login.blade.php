@@ -15,7 +15,7 @@
         <h2 class="text-3xl font-bold text-red-700 text-center mb-6">Login to Your Account</h2>
 
         <!-- Display validation errors (if any) -->
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -23,7 +23,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif --}}
 
         <!-- Login Form -->
         <form method="POST" action="{{ route('login') }}">

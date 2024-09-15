@@ -15,4 +15,4 @@ Route::get('/' , function(): View{
 //     return ['token' => $token->plainTextToken];
 // });
 
-Route::resource('users' , UserController::class)->only(['index']);
+Route::middleware('verified')->resource('users' , UserController::class)->only(['index']);
