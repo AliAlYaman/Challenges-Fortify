@@ -9,12 +9,8 @@ This API is created using **Laravel Fortify**. Please note that the `.gitignore`
 To clone this repository to your local machine, open your terminal and run the following command:
 
   ```bash
-  git clone https://github.com/AliAlYaman/Challenges-Fortify.git
-
-  ```bash
+  git clone https://github.com/AliAlYaman/Challenges-Fortify.git 
   cd fortify
-  ```bash
   git checkout api
-
-Set Up PostgreSQL
-
+  ```
+  Hello
