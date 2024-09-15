@@ -30,13 +30,14 @@ Create a new database called fortify.
 
 ### 4. Update the .env File:
 Now, update your .env file with the PostgreSQL credentials:
+```bash
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_DATABASE=fortify
 DB_USERNAME=your_postgres_username
 DB_PASSWORD=your_postgres_password
-
+```
 ### 5. Migrate the Database:
 ```bash
 php artisan migrate
