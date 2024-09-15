@@ -72,3 +72,10 @@ This project’s API is documented using Postman. You can find the full API docu
 Postman Documentation:[https://documenter.getpostman.com/view/32762986/2sAXqp83bn](https://documenter.getpostman.com/view/32762986/2sAXqp83bn)
 
 Use this documentation to see the available API endpoints and how to test them.
+
+### AXIOS BONUS:
+If you are using axios, make sure that while making axios requests to:
+```bash
+withCredentials: true
+withCSRFToken: true
+```
