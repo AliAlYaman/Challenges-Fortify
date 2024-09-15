@@ -75,6 +75,13 @@ Use this documentation to see the available API endpoints and how to test them.
 
 ### AXIOS BONUS:
 If you are using axios, make sure that while making axios requests to:
+- Send Accept header:
+```bash
+headers: {
+          Accept: "application/json",
+        },
+```
+- Make sure to turn the following commands **after** the headers object
 ```bash
 withCredentials: true
 withCSRFToken: true
